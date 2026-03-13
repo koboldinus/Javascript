@@ -2,171 +2,106 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Millionenshow</title>
-
-<style>
-
-body{
-background:#000428;
-color:white;
-font-family:Arial;
-text-align:center;
-}
-
-h1{
-color:gold;
-}
-
-#frage{
-font-size:26px;
-margin:30px;
-}
-
-button{
-display:block;
-margin:10px auto;
-padding:15px;
-width:320px;
-font-size:18px;
-border-radius:10px;
-border:none;
-background:#0033aa;
-color:white;
-cursor:pointer;
-}
-
-button:hover{
-background:#0055ff;
-}
-
-.richtig{
-background:green !important;
-}
-
-.falsch{
-background:red !important;
-}
-
-#geld{
-color:gold;
-font-size:24px;
-margin:20px;
-}
-
-</style>
+<title>Millionenshow Quiz</title>
 </head>
-
 <body>
-
-<h1>💰 Millionenshow 💰</h1>
-
-<div id="geld">Gewinn: 0 €</div>
-
-<div id="frage">Start drücken</div>
-
-<button id="a" onclick="antwort(0)"></button>
-<button id="b" onclick="antwort(1)"></button>
-<button id="c" onclick="antwort(2)"></button>
-<button id="d" onclick="antwort(3)"></button>
-
-<br>
-
-<button onclick="joker()">50:50 Joker</button>
-<button onclick="neueFrage()">Start / Nächste Frage</button>
-
-<p id="info"></p>
-
+<h1>Millionenshow</h1>
+<!-- Überschrift -->
+<div id="frage">Drücke "Neue Frage"</div>
+<!-- Hier wird die aktuelle Frage angezeigt -->
+<!-- Antwort-Buttons -->
+<button onclick="antwort(0)" id="a"></button>
+<button onclick="antwort(1)" id="b"></button>
+<button onclick="antwort(2)" id="c"></button>
+<button onclick="antwort(3)" id="d"></button>
+<br><br>
+<!-- Button, um eine neue Frage zu laden -->
+<button onclick="neueFrage()">Neue Frage</button>
+<!-- Hier wird das Ergebnis angezeigt -->
+<p id="ergebnis"></p>
 <script>
-
-let fragen=[
-{
-frage:"Was bedeutet HTML?",
-antwort:["Hyper Text Markup Language","High Text Machine Language","Home Tool Markup Language","Hyper Tool Multi Language"],
-richtig:0
-},
-{
-frage:"Welche Sprache läuft im Browser?",
-antwort:["Python","Java","JavaScript","C++"],
-richtig:2
-},
-{
-frage:"Wie viele Planeten hat unser Sonnensystem?",
-antwort:["7","8","9","10"],
-richtig:1
-},
-{
-frage:"Wer erfand das World Wide Web?",
-antwort:["Bill Gates","Tim Berners-Lee","Steve Jobs","Elon Musk"],
-richtig:1
-}
-];
-
-let aktuelle;
-let geld=[100,200,300,500,1000,2000,4000,8000,16000,32000,64000,125000,250000,500000,1000000];
-let stufe=0;
-
-function neueFrage(){
-
-let zufall=Math.floor(Math.random()*fragen.length);
-aktuelle=fragen[zufall];
-
-document.getElementById("frage").innerText=aktuelle.frage;
-
-let ids=["a","b","c","d"];
-
-for(let i=0;i<4;i++){
-let btn=document.getElementById(ids[i]);
-btn.innerText=aktuelle.antwort[i];
-btn.style.visibility="visible";
-btn.classList.remove("richtig");
-btn.classList.remove("falsch");
-}
-
-document.getElementById("info").innerText="";
-}
-
-function antwort(n){
-
-let ids=["a","b","c","d"];
-
-if(n==aktuelle.richtig){
-
-document.getElementById(ids[n]).classList.add("richtig");
-
-document.getElementById("info").innerText="RICHTIG 🔥";
-
-document.getElementById("geld").innerText="Gewinn: "+geld[stufe]+" €";
-
-stufe++;
-
-}else{
-
-document.getElementById(ids[n]).classList.add("falsch");
-document.getElementById(ids[aktuelle.richtig]).classList.add("richtig");
-
-document.getElementById("info").innerText="FALSCH 💀 Spiel vorbei";
-}
-
-}
-
-function joker(){
-
-let falsch=[];
-
-for(let i=0;i<4;i++){
-if(i!=aktuelle.richtig){
-falsch.push(i);
-}
-}
-
-falsch.sort(()=>0.5-Math.random());
-
-document.getElementById(["a","b","c","d"][falsch[0]]).style.visibility="hidden";
-document.getElementById(["a","b","c","d"][falsch[1]]).style.visibility="hidden";
-
-}
-
+ 
+        // Array von Fragen mit Antwortmöglichkeiten und dem Index der richtigen Antwort
+ 
+        let fragen = [
+ 
+            {
+ 
+                frage: "Was bedeutet HTML?",
+ 
+                antworten: ["Hyper Text Markup Language", "High Text Machine Language", "Hyperlinks and Text Machine Language", "Home Tool Markup Language"],
+ 
+                richtig: 0
+ 
+            },
+ 
+            {
+ 
+                frage: "Welche Sprache läuft im Browser?",
+ 
+                antworten: ["Python", "Java", "JavaScript", "C++"],
+ 
+                richtig: 2
+ 
+            },
+ 
+            {
+ 
+                frage: "Wie viele Planeten hat unser Sonnensystem?",
+ 
+                antworten: ["7", "8", "9", "10"],
+ 
+                richtig: 1
+ 
+            }
+ 
+        ];
+ 
+        let aktuelleFrage; // speichert die aktuelle Frage
+ 
+        // Funktion zum Laden einer neuen Frage
+ 
+        function neueFrage() {
+ 
+            let zufall = Math.floor(Math.random() * fragen.length);
+ 
+            aktuelleFrage = fragen[zufall]; // aktuelle Frage speichern
+ 
+            // Frage anzeigen
+ 
+            document.getElementById("frage").innerText = aktuelleFrage.frage;
+ 
+            // Antwortmöglichkeiten in Buttons setzen
+ 
+            document.getElementById("a").innerText = "A: " + aktuelleFrage.antworten[0];
+ 
+            document.getElementById("b").innerText = "B: " + aktuelleFrage.antworten[1];
+ 
+            document.getElementById("c").innerText = "C: " + aktuelleFrage.antworten[2];
+ 
+            document.getElementById("d").innerText = "D: " + aktuelleFrage.antworten[3];
+ 
+            // Ergebnisbereich leeren
+ 
+            document.getElementById("ergebnis").innerText = "";
+ 
+        }
+ 
+        // Funktion, die aufgerufen wird, wenn eine Antwort angeklickt wird
+ 
+        function antwort(nummer) {
+ 
+            if (nummer == aktuelleFrage.richtig) {
+ 
+                document.getElementById("ergebnis").innerText = "Richtig!";
+ 
+            } else {
+ 
+                document.getElementById("ergebnis").innerText = "Falsch!";
+ 
+            }
+ 
+        }
 </script>
-
 </body>
 </html>
