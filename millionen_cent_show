@@ -30,13 +30,13 @@
             {
                 frage: "Wie heißt der größte Ozean der Erde?",
                 antworten: ["Atlantik", "Indischer Ozean", "Pazifischer Ozean", "Arktischer Ozean"],
-                richtig: 2
+                richtig: 3
             },
 
             {
                 frage: "Wie heißt die Währung in Japan?",
                 antworten: ["Yuan", "Won", "Yen", "Dollar"],
-                richtig: 2
+                richtig: 3
             },
 
             {
