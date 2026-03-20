@@ -1,107 +1,104 @@
 <!DOCTYPE html>
 <html lang="de">
+<!-- Sprache -->
 <head>
-<meta charset="UTF-8">
-<title>Millionenshow Quiz</title>
+    <meta charset="UTF-8">
+    <!-- Buchtaben Zahlenpack -->
+    <title>Millionenshow Quiz</title>
 </head>
 <body>
-<h1>Millionenshow</h1>
-<!-- Überschrift -->
-<div id="frage">Drücke "Neue Frage"</div>
-<!-- Hier wird die aktuelle Frage angezeigt -->
-<!-- Antwort-Buttons -->
-<button onclick="antwort(0)" id="a"></button>
-<button onclick="antwort(1)" id="b"></button>
-<button onclick="antwort(2)" id="c"></button>
-<button onclick="antwort(3)" id="d"></button>
-<br><br>
-<!-- Button, um eine neue Frage zu laden -->
-<button onclick="neueFrage()">Neue Frage</button>
-<!-- Hier wird das Ergebnis angezeigt -->
-<p id="ergebnis"></p>
-<script>
- 
-        // Array von Fragen mit Antwortmöglichkeiten und dem Index der richtigen Antwort
- 
+    <h1>Millionenshow</h1>
+    <!-- Überschrift -->
+    <div id="frage">Drücke "Neue Frage"</div>
+    <!-- Id für funktion weiter unten-->
+    <button onclick="antwort(0)" id="a"></button>
+    <button onclick="antwort(1)" id="b"></button>
+    <button onclick="antwort(2)" id="c"></button>
+    <button onclick="antwort(3)" id="d"></button>
+    <!-- Button Wenn geklickt Fubktion antwort stelle 3-->
+    <br><br>
+    <!-- Zwei Zeilenumbrüche -->
+
+    <button onclick="neueFrage()">Neue Frage</button>
+    <!-- Hier wird das Ergebnis angezeigt -->
+    <p id="ergebnis"></p>
+    <script>
+        // Beginn Javascript
+
         let fragen = [
- 
+
             {
- 
-                frage: "Was bedeutet HTML?",
- 
-                antworten: ["Hyper Text Markup Language", "High Text Machine Language", "Hyperlinks and Text Machine Language", "Home Tool Markup Language"],
- 
-                richtig: 0
- 
-            },
- 
-            {
- 
-                frage: "Welche Sprache läuft im Browser?",
- 
-                antworten: ["Python", "Java", "JavaScript", "C++"],
- 
+                frage: "Wie heißt der größte Ozean der Erde?",
+                antworten: ["Atlantik", "Indischer Ozean", "Pazifischer Ozean", "Arktischer Ozean"],
                 richtig: 2
- 
             },
- 
+
             {
- 
+                frage: "Wie heißt die Währung in Japan?",
+                antworten: ["Yuan", "Won", "Yen", "Dollar"],
+                richtig: 2
+            },
+
+            {
                 frage: "Wie viele Planeten hat unser Sonnensystem?",
- 
                 antworten: ["7", "8", "9", "10"],
- 
                 richtig: 1
- 
-            }
- 
-        ];
- 
-        let aktuelleFrage; // speichert die aktuelle Frage
- 
-        // Funktion zum Laden einer neuen Frage
- 
+            },
+
+            {
+                frage: "Welches Land hat die meisten Zeitzonen?",
+                antworten: ["USA", "Russland", "Frankreich", "China"],
+                richtig: 2
+            },
+            {
+                frage: "Wann entdeckte Christoph Kolumbus Amerika?",
+                antworten: ["1809", "1397", "1506", "1492"],
+                richtig: 4
+            },
+
+        ]; //Fragen und Antworten werden im Array gespeichert
+        let aktuelleFrage; // Definiert aktuelle Frage
         function neueFrage() {
- 
+            // Funktion zum Laden einer neuen Frage, wenn Button geklickt
+
             let zufall = Math.floor(Math.random() * fragen.length);
- 
-            aktuelleFrage = fragen[zufall]; // aktuelle Frage speichern
- 
-            // Frage anzeigen
- 
+            //Math.floor das Zahl immer abgerundet wird
+            //Math random zufallszahl * Fragenanzahl
+
+            aktuelleFrage = fragen[zufall];  //DIe Frage der Zufallszahl= aktuelle Frage
+
+            fragen.splice(zufall, 1)
+            // entfernt die Frage aus dem Array
+            // 1 ist die Anzahl der entfernten Fragen
+
+
             document.getElementById("frage").innerText = aktuelleFrage.frage;
- 
-            // Antwortmöglichkeiten in Buttons setzen
- 
+            //inner Text = Schreibe Text der aktuellen Frage hin
+            //über document kann man alles im Dokument suchen
+
             document.getElementById("a").innerText = "A: " + aktuelleFrage.antworten[0];
- 
             document.getElementById("b").innerText = "B: " + aktuelleFrage.antworten[1];
- 
             document.getElementById("c").innerText = "C: " + aktuelleFrage.antworten[2];
- 
             document.getElementById("d").innerText = "D: " + aktuelleFrage.antworten[3];
- 
-            // Ergebnisbereich leeren
- 
+            //Funktion von Button definieren über Id
+            // A: + Antwortstelle 1 usw.
+
             document.getElementById("ergebnis").innerText = "";
- 
-        }
- 
+        } // Ergebnisbereich leeren wenn neue Frage kommt
         // Funktion, die aufgerufen wird, wenn eine Antwort angeklickt wird
- 
         function antwort(nummer) {
- 
+            // Funktion antwort mit variable nummer
+
             if (nummer == aktuelleFrage.richtig) {
- 
+                //Wenn nummer = richtige Antwort
                 document.getElementById("ergebnis").innerText = "Richtig!";
- 
+                //schreibe Richtig
+
             } else {
- 
                 document.getElementById("ergebnis").innerText = "Falsch!";
- 
+                //Wenn nicht schreibe Falsch
             }
- 
         }
-</script>
+    </script>
 </body>
 </html>
