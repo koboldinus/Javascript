@@ -2,117 +2,236 @@
 <html lang="de">
 <!-- Sprache -->
 <head>
-    <meta charset="UTF-8">
-    <!-- Buchtaben Zahlenpack -->
-    <title>Millionenshow Quiz</title>
+<style>
+
+        body {
+
+            height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            flex-direction: column;
+
+        }
+</style>
+<meta charset="UTF-8">
+<!-- Buchtaben Zahlenpack -->
+<title>Millionenshow Quiz</title>
 </head>
 <body>
-    <h1>Millionenshow</h1>
-    <!-- Überschrift -->
-    <div id="frage">Drücke "Neue Frage"</div>
-    <!-- Id für funktion weiter unten-->
-    <button onclick="antwort(0)" id="a"></button>
-    <button onclick="antwort(1)" id="b"></button>
-    <button onclick="antwort(2)" id="c"></button>
-    <button onclick="antwort(3)" id="d"></button>
-    <!-- Button Wenn geklickt Fubktion antwort stelle 3-->
-    <br><br>
-    <!-- Zwei Zeilenumbrüche -->
-
+<h1>Millionenshow</h1>
+<!-- Überschrift -->
+<div id="frage">Drücke "Neue Frage"</div>
+<!-- Id für funktion weiter unten-->
+<br><br>
+ 
+    <button style="width: 300px; height: 50px;" onclick="antwort(0)" id="a"></button>
+<br><br>   <!-- Zwei Zeilenumbrüche -->
+ 
+    <button style="width: 300px; height: 50px;" onclick="antwort(1)" id="b"></button>
+<br><br>
+ 
+    <button style="width: 300px; height: 50px;" onclick="antwort(2)" id="c"></button>
+<br><br>
+ 
+    <button style="width: 300px; height: 50px;" onclick="antwort(3)" id="d"></button>
+<!-- Button Wenn geklickt Fubktion antwort stelle 3-->
+<br><br>
+ 
+ 
     <button onclick="neueFrage()">Neue Frage</button>
-    <!-- Hier wird das Ergebnis angezeigt -->
-    <p id="ergebnis"></p>
+<!-- Hier wird das Ergebnis angezeigt -->
+<p id="ergebnis"></p>
+ 
     <script>
+
         // Beginn Javascript
+ 
+        z = ["0", "100", "200", "300", "400", "500", "1000", "2500", "5000", "10000", "15000", "30000", "75000", "150000", "300000", "500000", "1000000"]
 
+        let x = 0;
+ 
         let fragen = [
-
+ 
             {
+
                 frage: "Wie heißt der größte Ozean der Erde?",
+
                 antworten: ["Atlantik", "Indischer Ozean", "Pazifischer Ozean", "Arktischer Ozean"],
+
                 richtig: 2
+
             },
 
             {
+
                 frage: "Wie heißt die Währung in Japan?",
+
                 antworten: ["Yuan", "Won", "Yen", "Dollar"],
+
                 richtig: 2
+
             },
 
             {
+
                 frage: "Wie viele Planeten hat unser Sonnensystem?",
+
                 antworten: ["7", "8", "9", "10"],
+
                 richtig: 1
+
             },
 
             {
+
                 frage: "Welches Land hat die meisten Zeitzonen?",
+
                 antworten: ["USA", "Russland", "Frankreich", "China"],
+
                 richtig: 2
+
             },
+
             {
+
                 frage: "Wann entdeckte Christoph Kolumbus Amerika?",
-                antworten: ["1809", "1397", "1506", "1492"],
+
+                antworten: ["1809", "1397", "2000", "1492"],
+
                 richtig: 3
+
             },
+
             {
-                frage: "Wer war KEIN Mitglied der Beatles",
-                antworten: ["Paul McCartney", "John Lennon", "Ringo Starr", "James Rutherford"],
-                richtig: 3
+
+                frage: "Welcher Spruch ist nicht in Mechanik bekannt?",
+
+                antworten: ["Ihr wart ja 2 Klassen", "Wie soll das konstant sein", "Was ist B und was ist H", "Arktischer Ozean"],
+
+                richtig: 2
+
             },
-{
-                frage: "Was ist die Vorwahl deutscher Telefonnummern",
-                antworten: ["+49", +64", "+43", "+42"],
+
+            {
+
+                frage: "Wer darf aktuell nicht in Mechanik geweckt werden?",
+
+                antworten: ["Der Fet liebhaber", "Der Spitzensportler", "Der Berserker", "Die Schnecke"],
+
+                richtig: 2
+
+            },
+
+            {
+
+                frage: "Wie lautet das Ergebnis der Rechnung 2x2+2/2-2?",
+
+                antworten: ["3", "4", "1", "2"],
+
                 richtig: 0
+
             },
-{
-                frage: "Wann wurde die Band Metakllica gegründet",
-                antworten: ["1987", "1981", "1995", "Gestern"],
-                richtig: 1
+
+            {
+
+                frage: "Welche Bildschirmzeit hat der Noah Fischer durchschnitlich?",
+
+                antworten: ["6 h", "8 h", "10 h", "Die Länge des Schultages"],
+
+                richtig: 3
+
             },
+
+            {
+
+                frage: "Wie viele Spieler stehen bei einem offiziellen Basketballspiel pro Mannschaft gleichzeitig auf dem Feld?",
+
+                antworten: ["5", "6", "7", "8"],
+
+                richtig: 0
+
+            },
+ 
         ]; //Fragen und Antworten werden im Array gespeichert
+ 
         let aktuelleFrage; // Definiert aktuelle Frage
+
         function neueFrage() {
+
             // Funktion zum Laden einer neuen Frage, wenn Button geklickt
-
+ 
             let zufall = Math.floor(Math.random() * fragen.length);
+
             //Math.floor das Zahl immer abgerundet wird
+
             //Math random zufallszahl * Fragenanzahl
-
-            aktuelleFrage = fragen[zufall];  //Die Frage der Zufallszahl= aktuelle Frage
-
+ 
+            aktuelleFrage = fragen[zufall];  //DIe Frage der Zufallszahl= aktuelle Frage
+ 
             fragen.splice(zufall, 1)
+
             // entfernt die Frage aus dem Array
+
             // 1 ist die Anzahl der entfernten Fragen
-
-
+ 
+ 
             document.getElementById("frage").innerText = aktuelleFrage.frage;
+
             //inner Text = Schreibe Text der aktuellen Frage hin
+
             //über document kann man alles im Dokument suchen
-
+ 
             document.getElementById("a").innerText = "A: " + aktuelleFrage.antworten[0];
+
             document.getElementById("b").innerText = "B: " + aktuelleFrage.antworten[1];
+
             document.getElementById("c").innerText = "C: " + aktuelleFrage.antworten[2];
+
             document.getElementById("d").innerText = "D: " + aktuelleFrage.antworten[3];
+
             //Funktion von Button definieren über Id
+
             // A: + Antwortstelle 1 usw.
-
+ 
             document.getElementById("ergebnis").innerText = "";
+
         } // Ergebnisbereich leeren wenn neue Frage kommt
+
         // Funktion, die aufgerufen wird, wenn eine Antwort angeklickt wird
+
         function antwort(nummer) {
+
             // Funktion antwort mit variable nummer
+ 
+            if (nummer == aktuelleFrage.richtig) {  //Wenn nummer = richtige Antwort
+ 
+                x++; // nächster Schritt
+ 
+                console.log(z[x]); // Speichert Nummer z zu Stelle x
 
-            if (nummer == aktuelleFrage.richtig) {
-                //Wenn nummer = richtige Antwort
-                document.getElementById("ergebnis").innerText = "Richtig!";
-                //schreibe Richtig
+                document.getElementById("ergebnis").innerText = z[x]; //Schreibt den gewinn
 
-            } else {
-                document.getElementById("ergebnis").innerText = "Falsch!";
-                //Wenn nicht schreibe Falsch
             }
+ 
+            else {
+
+                document.getElementById("ergebnis").innerText = "Falsch!";
+
+                //Wenn nicht schreibe Falsch
+
+                alert("Du hast es Falsch. Willst du es erneut versuchen?");//popup meldung
+
+                location.reload()
+
+            }
+
         }
-    </script>
+</script>
 </body>
 </html>
+ 
