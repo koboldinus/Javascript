@@ -30,13 +30,13 @@
             {
                 frage: "Wie heißt der größte Ozean der Erde?",
                 antworten: ["Atlantik", "Indischer Ozean", "Pazifischer Ozean", "Arktischer Ozean"],
-                richtig: 3
+                richtig: 2
             },
 
             {
                 frage: "Wie heißt die Währung in Japan?",
                 antworten: ["Yuan", "Won", "Yen", "Dollar"],
-                richtig: 3
+                richtig: 2
             },
 
             {
@@ -53,9 +53,23 @@
             {
                 frage: "Wann entdeckte Christoph Kolumbus Amerika?",
                 antworten: ["1809", "1397", "1506", "1492"],
-                richtig: 4
+                richtig: 3
             },
-
+            {
+                frage: "Wer war KEIN Mitglied der Beatles",
+                antworten: ["Paul McCartney", "John Lennon", "Ringo Starr", "James Rutherford"],
+                richtig: 3
+            },
+{
+                frage: "Was ist die Vorwahl deutscher Telefonnummern",
+                antworten: ["+49", +64", "+43", "+42"],
+                richtig: 0
+            },
+{
+                frage: "Wann wurde die Band Metakllica gegründet",
+                antworten: ["1987", "1981", "1995", "Gestern"],
+                richtig: 1
+            },
         ]; //Fragen und Antworten werden im Array gespeichert
         let aktuelleFrage; // Definiert aktuelle Frage
         function neueFrage() {
@@ -65,7 +79,7 @@
             //Math.floor das Zahl immer abgerundet wird
             //Math random zufallszahl * Fragenanzahl
 
-            aktuelleFrage = fragen[zufall];  //DIe Frage der Zufallszahl= aktuelle Frage
+            aktuelleFrage = fragen[zufall];  //Die Frage der Zufallszahl= aktuelle Frage
 
             fragen.splice(zufall, 1)
             // entfernt die Frage aus dem Array
