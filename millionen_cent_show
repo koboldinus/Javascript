@@ -95,7 +95,7 @@
             {
                 frage: "Wer beeintruckt mit seiner besonderen Anwesenheit?",
                 antworten: ["Marcel", "Oli", "Leo", "Moni"],
-                richtig: 2
+                richtig: 0
             },
  
             {
