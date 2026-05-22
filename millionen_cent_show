@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
-<!-- Sprache -->
 <head>
+ 
+    <!-- Design (höhe 100%,flexibel ausrichtbar, Zentrieren horizontal, vertikal,
+        untereinander, Hintergrundfarbe) -->
+<!-- Überschrift, Frage und Ergebnistext größe und Farbe -->
+<!-- Rechte Spalte für Button, fxierter Platz, abstand zum rechten Rand
+         Abstand von oben, abstand Zwischen Texten -->
 <style>
         body {
             height: 100vh;
@@ -9,50 +14,76 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background-color:cornflowerblue
+            background-color: cornflowerblue
+        }
+        h1 {font-size: 60px;color: black; }
+        #frage { font-size: 30px;color: black; }
+        #ergebnis {font-size: 25px;color: black;}
+ 
+        .right-buttons {
+            position: fixed;
+            right: 50px;
+            top: 30%;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
         }
 </style>
-<!-- Stil Mittig untereinander -->
+ 
+  
+<!-- Buchtaben Zahlenpack, Titel -->
 <meta charset="UTF-8">
-<!-- Buchtaben Zahlenpack -->
 <title>Millionenshow Quiz</title>
 </head>
+ 
+<!-- Joker button der classe für Rechts -->
+<div class="right-buttons">
+<h2> Joker</h2>
+<button style="width: 100px; height: 30px;" onclick="Joker1()" id="Joker1"> Publikum </button>
+</div>
+ 
 <body>
-<h1>Millionenshow</h1>
 <!-- Überschrift -->
+<h1>Millionenshow</h1>
+ 
+    <!-- Text, id für Textänderung später, ersetzt ursprungstext durch frage, 2 Zeilen frei -->
 <div id="frage">Drücke "Neue Frage"</div>
-<!-- Id für funktion weiter unten-->
 <br><br>
  
-    <button style="width: 300px; height: 50px;" onclick="antwort(0)" id="a"></button>  <!-- breit höhe Kästchen -->
-<br><br>   <!-- Zwei Zeilenumbrüche -->
  
-    <button style="width: 300px; height: 50px;" onclick="antwort(1)" id="b"></button>
+    <!-- button für 4 Antwortmöglichkeiten, breite, höhe,
+        wenn geklickt mache Funktion, id für Textänderung später, 2 Zeilen frei -->
+<button style="width: 300px; height: 50px;" onclick="antwort(0)" id="a"></button>
+<br><br>
+<button style="width: 300px; height: 50px;" onclick="antwort(1)" id="b"></button>
+<br><br>
+<button style="width: 300px; height: 50px;" onclick="antwort(2)" id="c"></button>
+<br><br>
+<button style="width: 300px; height: 50px;" onclick="antwort(3)" id="d"></button>
 <br><br>
  
-    <button style="width: 300px; height: 50px;" onclick="antwort(2)" id="c"></button>
-<br><br>
+    <!-- button für neue Frage, wenn geklickt Funktion -->
+<button onclick="neueFrage()" id="neueFr">Neue Frage </button>
  
-    <button style="width: 300px; height: 50px;" onclick="antwort(3)" id="d"></button>
-<!-- Button Wenn geklickt Fubktion antwort stelle 3-->
-<br><br>
- 
-
-<button onclick="neueFrage()">Neue Frage</button>
-<!-- Neu Frage -->
+    <!-- Text der Aktuellen gewinn Anzeigt über id -->
 <p id="ergebnis"></p>
 <br><br>
  
-    <button style="width: 200px; height: 50px;" onclick="aussteigen()">Aussteigen</button>
+    <!-- button für Aussteigen, breite, höhe, Funktion bei klick, Text aussteigen -->
+<button style="width: 200px; height: 50px;" onclick="aussteigen()">Aussteigen</button>
 <br><br>
 <!-- Aussteigen -->
+
  
     <script>
         // Beginn Javascript
  
-        z = ["0", "100", "200", "300", "400", "500", "1000", "2500", "5000", "10000", "15000", "30000", "75000", "150000", "300000", "1000000 Watschen gewonnen"]
+        //array z für Gewinn (pro Richtige Frage eine Zahl weiter, Beginnt bei null)
+        z = ["0", "100", "200", "300", "400", "500", "1000", "2500", "5000", "10000", "15000", "30000", "75000", "150000", "300000", "1000000"]
         let x = 0;
  
+ 
+        //Fragen antworten und Richtige antwort definieren
         let fragen = [
  
             {
@@ -151,75 +182,171 @@
  
             },
  
-
-        ]; //Fragen und Antworten werden im Array gespeichert
  
-        let aktuelleFrage; // Definiert aktuelle Frage
+        ];
  
-        // 🔧 NEU: Funktion zum Aktivieren/Deaktivieren der Buttons
-        function setButtonsDisabled(status) {
+        // variable später definierbar
+        let aktuelleFrage;
+ 
+ 
+        // Defniert funktion um die 4 Antwortbuttons auszuschalten je nach Status für Gruppe 1
+        function setGroup1Disabled(status) {
             document.getElementById("a").disabled = status;
             document.getElementById("b").disabled = status;
             document.getElementById("c").disabled = status;
             document.getElementById("d").disabled = status;
         }
  
+        function setGroup2Disabled(status) {
+            document.getElementById("neueFr").disabled = status;
+        }
+ 
+        function setGroup3Disabled(status) {
+            document.getElementById("Joker1").disabled = status;
+        }
+ 
+ 
+        //Funktion für Puplikumsjoker
+        function Joker1() {
+ 
+            //nach drücken blockiert
+            setGroup3Disabled(true);
+ 
+            //Wenn Richtige antwotrt ist:
+            if (aktuelleFrage.richtig === 0) {
+ 
+                //Definiere Publikumsergebnis
+                let A = 8;
+                let B = 1;
+                let C = 2;
+                let D = 4;
+ 
+                //A: a*█ Anzahl Balken dan füge a ein usw.
+                // \n für neue Zeile
+                alert(
+                    "Diagramm:\n\n" +
+                    "A: " + "█".repeat(A) + " (" + A + ")\n" +
+                    "B: " + "█".repeat(B) + " (" + B + ")\n" +
+                    "C: " + "█".repeat(C) + " (" + C + ")\n" +
+                    "D: " + "█".repeat(D) + " (" + D + ")"
+                );
+ 
+            } else if (aktuelleFrage.richtig === 1) {
+ 
+                let A = 3;
+                let B = 9;
+                let C = 2;
+                let D = 4;
+ 
+                alert(
+                    "Diagramm:\n\n" +
+                    "A: " + "█".repeat(A) + " (" + A + ")\n" +
+                    "B: " + "█".repeat(B) + " (" + B + ")\n" +
+                    "C: " + "█".repeat(C) + " (" + C + ")\n" +
+                    "D: " + "█".repeat(D) + " (" + D + ")"
+                );
+ 
+            } else if (aktuelleFrage.richtig === 2) {
+ 
+                let A = 3;
+                let B = 5;
+                let C = 12;
+                let D = 0;
+ 
+                alert(
+                    "Diagramm:\n\n" +
+                    "A: " + "█".repeat(A) + " (" + A + ")\n" +
+                    "B: " + "█".repeat(B) + " (" + B + ")\n" +
+                    "C: " + "█".repeat(C) + " (" + C + ")\n" +
+                    "D: " + "█".repeat(D) + " (" + D + ")"
+                );
+ 
+            } else {
+ 
+                let A = 3;
+                let B = 3;
+                let C = 2;
+                let D = 7;
+ 
+                alert(
+                    "Diagramm:\n\n" +
+                    "A: " + "█".repeat(A) + " (" + A + ")\n" +
+                    "B: " + "█".repeat(B) + " (" + B + ")\n" +
+                    "C: " + "█".repeat(C) + " (" + C + ")\n" +
+                    "D: " + "█".repeat(D) + " (" + D + ")"
+                );
+            }
+        }
+ 
+        // Definiert Funktion für neue Frage mit Zufallsfragen
         function neueFrage() {
-            // Funktion zum Laden einer neuen Frage, wenn Button geklickt
  
+            //Zahl wird immer abgerundet, zufallszahl * Fragenanzahl, Ergebnis bestimmt Frage
             let zufall = Math.floor(Math.random() * fragen.length);
-            //Math.floor das Zahl immer abgerundet wird
-            //Math random zufallszahl * Fragenanzahl
+            aktuelleFrage = fragen[zufall];
  
-            aktuelleFrage = fragen[zufall];  //DIe Frage der Zufallszahl= aktuelle Frage
- 
+            // entferne schon vorgekommene Fragen
             fragen.splice(zufall, 1)
-            // entfernt die Frage aus dem Array
-            // 1 ist die Anzahl der entfernten Fragen
  
-
+            // Schreibe davor definierte Frage hin
             document.getElementById("frage").innerText = aktuelleFrage.frage;
-            //inner Text = Schreibe Text der aktuellen Frage hin
-            //über document kann man alles im Dokument suchen
  
+            // Schreibe durch die davor definierte id in die buttons, A: und die antwort 1 2 3 und 4
             document.getElementById("a").innerText = "A: " + aktuelleFrage.antworten[0];
             document.getElementById("b").innerText = "B: " + aktuelleFrage.antworten[1];
             document.getElementById("c").innerText = "C: " + aktuelleFrage.antworten[2];
             document.getElementById("d").innerText = "D: " + aktuelleFrage.antworten[3];
-            //Funktion von Button definieren über Id
-            // A: + Antwortstelle 1 usw.
  
+            // Schreibe aktuellen Gewinn hin noch leer, ändert sich später
             document.getElementById("ergebnis").innerText = "";
  
-            // Ergebnisbereich leeren wenn neue Frage kommt
-            // Funktion, die aufgerufen wird, wenn eine Antwort angeklickt wird
-            // 🔧 NEU: Buttons wieder aktivieren
-            setButtonsDisabled(false);
+            //Hintergrundfarbe der buttons Definierbar machen
+            document.getElementById("a").style.backgroundColor = "";
+            document.getElementById("b").style.backgroundColor = "";
+            document.getElementById("c").style.backgroundColor = "";
+            document.getElementById("d").style.backgroundColor = "";
+ 
+            // Aktiviert antwort buttons deaktiviere neue Frage
+            setGroup1Disabled(false);
+            setGroup2Disabled(true);
         }
  
+ 
+        // Funktion überprüft ob antwort richtig ist, wird bei buttonklick aktiviert
         function antwort(nummer) {
  
-            // 🔧 NEU: Buttons deaktivieren nach Klick
-            setButtonsDisabled(true);
+            // deaktiviere antwort buttons Aktiviert neue Frage
+            setGroup1Disabled(true);
+            setGroup2Disabled(false);
  
+            //Nummer ist der angeklickte button
+            //wenn Antwort ist Richtig x+1, geht in array z Stelle weiter
             if (nummer == aktuelleFrage.richtig) {
                 x++;
+                // Speichert den wert für z und schreibt ihn dann bei Gewinn hin
                 console.log(z[x]);
-                document.getElementById("ergebnis").innerText = z[x];
+                document.getElementById("ergebnis").innerText = "Gewinn: " + z[x];
+ 
+                //Wenn Richtig färbe Nummer Grün
+                let buttonIds = ["a", "b", "c", "d"];
+                document.getElementById(buttonIds[nummer]).style.backgroundColor = "#00CC33";
             }
  
+            //Wenn falsch Ergebnis bleibt frei, alert oben und website neu laden
             else {
-                document.getElementById("ergebnis").innerText = "Falsch!";
+                document.getElementById("ergebnis").innerText = "";
                 alert("Du hast es Falsch. Willst du es erneut versuchen?");
                 location.reload();
             }
         }
  
+        // bei button aussteigen, alert und neuladen
         function aussteigen() {
-            alert("Du hast " + z[x] +  " Watschen gewonnen");
+            alert("Du hast " + z[x] + " Watschen gewonnen");
             location.reload()
         }
  
     </script>
 </body>
 </html>
+ 
