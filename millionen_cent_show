@@ -156,7 +156,7 @@
  
             {
                 frage: "Was ist unbekannt für HTL Schüler?",
-                antworten: ["Freizeit", "Verzweiflung", "Depression", "Hass"],
+                antworten: ["Freizeit", "Verzweiflung", "Depression", "SSelbsthass"],
                 richtig: 0
  
             },
@@ -322,14 +322,21 @@
             //Nummer ist der angeklickte button
             //wenn Antwort ist Richtig x+1, geht in array z Stelle weiter
             if (nummer == aktuelleFrage.richtig) {
-                x++;
-                // Speichert den wert für z und schreibt ihn dann bei Gewinn hin
-                console.log(z[x]);
-                document.getElementById("ergebnis").innerText = "Gewinn: " + z[x];
+                if (x == 14) {
+                    x++
+                    alert("Du hast " + z[x] + " Watschen gewonnen");
+                    location.reload()
+                }
+                else {
+                    x++;
+                    // Speichert den wert für z und schreibt ihn dann bei Gewinn hin
+                    console.log(z[x]);
+                    document.getElementById("ergebnis").innerText = "Gewinn: " + z[x];
  
-                //Wenn Richtig färbe Nummer Grün
-                let buttonIds = ["a", "b", "c", "d"];
-                document.getElementById(buttonIds[nummer]).style.backgroundColor = "#00CC33";
+                    //Wenn Richtig färbe Nummer Grün
+                    let buttonIds = ["a", "b", "c", "d"];
+                    document.getElementById(buttonIds[nummer]).style.backgroundColor = "#00CC33";
+                }
             }
  
             //Wenn falsch Ergebnis bleibt frei, alert oben und website neu laden
@@ -346,7 +353,7 @@
             location.reload()
         }
  
+ 
     </script>
 </body>
 </html>
- 
